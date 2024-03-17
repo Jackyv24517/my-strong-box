@@ -1,15 +1,8 @@
-const express = require('express');
-const app = express();
-const port = process.env.PORT || 3001;
+const app = require('./app'); // Import the Express application
 
-app.use(express.json()); // for parsing application/json
+const port = process.env.PORT || 3001; // Define the port
 
-// Define a route handler for the default home page
-app.get('/', (req, res) => {
-  res.send('Hello, myStrongBox!');
-});
-
-// Start the server
+// Start the server and listen on the defined port
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
