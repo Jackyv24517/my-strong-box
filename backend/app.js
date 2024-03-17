@@ -11,7 +11,7 @@ const app = express();
 // Middleware to parse JSON bodies
 app.use(express.json());
 
-//connection cred var
+// Construct MongoDB URI
 const username = encodeURIComponent(process.env.DB_USERNAME);
 const password = encodeURIComponent(process.env.DB_PASSWORD);
 const cluster = process.env.DB_CLUSTER;
@@ -27,21 +27,17 @@ mongoose.connect(uri, {
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('Could not connect to MongoDB:', err));
 
-/*
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-db.once('open', function() {
-  console.log('MongoDB database connection established successfully');
-});
-*/
-
-// CORS configuration
+// CORS configuration - set for temporarily dev used only
 app.use(cors({
   origin: 'http://localhost:3000' // permitted frontend URL
 }));
 
 
-// Basic route for the homepage
+// Use Auth Routes with /api/auth prefix
+app.use('/api/auth', authRoutes);
+
+
+// Basic route for the default app response
 app.get('/', (req, res) => {
   res.send('Hello, myStrongBox!');
 });
