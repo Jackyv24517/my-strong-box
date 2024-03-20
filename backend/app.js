@@ -32,6 +32,8 @@ app.use(cors({
   origin: 'http://localhost:3000' // permitted frontend URL
 }));
 
+// Import Auth Routes
+const authRoutes = require('./src/routes/auth');
 
 // Use Auth Routes with /api/auth prefix
 app.use('/api/auth', authRoutes);
